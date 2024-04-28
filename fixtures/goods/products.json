@@ -1,0 +1,28 @@
+[
+    {
+        "model": "goods.products",
+        "pk": 1,
+        "fields": {
+            "name": "Course1",
+            "slug": "course1",
+            "description": "Take the IELTS test with total confidence and get the score you need with private and group IELTS preparation classes.",
+            "image": "goods_images/my_avatar.jpg",
+            "price": "122.02",
+            "discount": "1.13",
+            "quantity": 1
+        }
+    },
+    {
+        "model": "goods.products",
+        "pk": 2,
+        "fields": {
+            "name": "Course2",
+            "slug": "course2",
+            "description": "better than ever",
+            "image": "goods_images/photo_2024-03-20_01-42-05.jpg",
+            "price": "130.00",
+            "discount": "12.00",
+            "quantity": 2
+        }
+    }
+]
