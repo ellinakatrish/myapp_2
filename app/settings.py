@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS
+from django.conf.global_settings import AUTH_USER_MODEL, MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS
 from django.forms import Media
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '1324',
+        'NAME': 'home',
+        'USER': 'home',
+        'PASSWORD': 'home',
         'HOST': 'localhost',
         'PORT': '5432',         
     }
@@ -158,3 +158,4 @@ INTERNAL_IPS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.User'
