@@ -1,9 +1,9 @@
-from audioop import reverse
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-from users.forms import UserLoginForm
+from django.urls import reverse
+        
+from users.forms import UserLoginForm, UserRegistrationForm
 
 def login(request):
     if request.method == 'POST':
@@ -28,11 +28,20 @@ def login(request):
 
 
 def registration (request):
-    context = {
+    if request.method == 'POST':
+        form = UserRegistrationForm(data=request.POST)
+        if form.is_valid():
+          form.save()          
+          return HttpResponseRedirect(reverse('user:login'))
+    else:        
+        form = UserRegistrationForm()
         
-        'title':'Home - Registration',
-    }       
+    context = {
+      'title': 'Home - Registration',
+       'form': form
+    }
     return render(request, 'users/registration.html', context)
+    
 
 
 def profile (request):
