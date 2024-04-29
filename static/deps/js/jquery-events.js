@@ -9,14 +9,14 @@ $(document).ready(function () {
         }, 7000);
     }
 
-    // При клике по значку корзины открываем всплывающее(модальное) окно
+    //Clicking basket button the modal window is opening
     $('#modalButton').click(function () {
         $('#exampleModal').appendTo('body');
 
         $('#exampleModal').modal('show');
     });
 
-    // Собыите клик по кнопке закрыть окна корзины
+    // Click on the button to close the cart window
     $('#exampleModal .btn-close').click(function () {
         $('#exampleModal').modal('hide');
     });

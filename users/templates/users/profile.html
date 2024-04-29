@@ -31,10 +31,10 @@
                                     {% endif %}
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label for="id_last_name" class="form-label">Фамилия*</label>
+                                <label for="id_last_name" class="form-label">Last Name*</label>
                                 <input type="text" class="form-control" id="id_last_name"
                                     name="last_name"
-                                    placeholder="Введите вашу фамилию"
+                                    placeholder="Enter your last name"
                                     value="{{ form.last_name.value }}"
                                     required>
                                     {% if form.last_name.errors %}
@@ -42,10 +42,10 @@
                                     {% endif %}
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label for="id_username" class="form-label">Имя пользователя*</label>
+                                <label for="id_username" class="form-label">Username*</label>
                                 <input type="text" class="form-control" id="id_username"
                                     name="username"
-                                    placeholder="Введите ваше имя пользователя"
+                                    placeholder="Enter your username"
                                     value="{{ form.username.value }}"
                                     required>
                                     {% if form.username.errors %}
@@ -56,7 +56,7 @@
                                 <label for="id_email" class="form-label">Email*</label>
                                 <input type="email" class="form-control" id="id_email"
                                     name="email"
-                                    placeholder="Введите ваш email *youremail@example.com"
+                                    placeholder="Enter your email *youremail@example.com"
                                     value="{{ form.email.value }}"
                                     required>
                                     {% if form.email.errors %}
@@ -64,7 +64,7 @@
                                     {% endif %}
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-dark">Сохранить</button>
+                        <button type="submit" class="btn btn-dark">Save</button>
                     </form>
                 </div>
             </div>
@@ -82,17 +82,17 @@
                     </a>
                 </div>
             </div>
-            <!-- Оформленные заказы -->
+            <!-- Orderd -->
             <div class="col-md-12">
                 <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
-                    <h3 class="text-center mb-4">Мои заказы</h3>
-                    <!-- Разметка заказов -->
+                    <h3 class="text-center mb-4">My orderd</h3>
+                    <!-- Ordering chart -->
                     <div class="container">
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading1">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                                        Заказ № 256 - 09 сентября 2023 9:04 | Статус:<strong class="mx-2"> In processing</strong>
+                                        Order № 256 - 09 april 2024 9:04 | Status:<strong class="mx-2"> In processing</strong>
                                     </button>
                                 </h2>
                                 <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
@@ -108,7 +108,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><a class="text-white" href="#">Комплект стол и три стула</a></td>
+                                                    <td><a class="text-white" href="#">Course 1</a></td>
                                                     <td>1</td>
                                                     <td>255.00 $</td>
                                                     <td>255.00 $</td>
@@ -117,7 +117,7 @@
                                             </tbody>
                                         </table>
                                         <div class="d-flex justify-content-between">
-                                            <p><strong>Итого:</strong></p>
+                                            <p><strong>Total:</strong></p>
                                             <p><strong>255.00 $</strong></p>
 
                                         </div>
@@ -127,7 +127,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading2">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                        Заказ № 248 - 01 августа 2023 11:28 | Статус: <strong>Получен</strong>
+                                        Order № 248 - 01 april 2024 11:28 | Статус: <strong>Got</strong>
                                     </button>
                                 </h2>
                                 <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">
@@ -143,7 +143,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><a class="text-white" href="#">Стул офисный</a></td>
+                                                    <td><a class="text-white" href="#">Book1</a></td>
                                                     <td>2</td>
                                                     <td>30.00 $</td>
                                                     <td>60.00 $</td>
@@ -156,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Закончилась разметка заказов -->
+                    <!-- End of ordering chart -->
                 </div>
             </div>
         </div>

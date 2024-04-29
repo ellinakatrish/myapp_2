@@ -47,7 +47,7 @@ class ProfileForm(UserChangeForm):
     image = forms.ImageField(required=False)
     #       widget=forms.FileInput(attrs={"class": "form-control mt-3"}), required=False)
        
-    first_name = forms.CharField()
+    first_name = forms.CharField()  
     last_name = forms.CharField()
     username = forms.CharField()
     email = forms.CharField()

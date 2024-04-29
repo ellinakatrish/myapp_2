@@ -14,16 +14,20 @@ def login(request):
             username = request.POST['username']
             password = request.POST['password']
             user = auth.authenticate(username=username, password=password)
-    
+
             if user:
                 auth.login(request, user)     
-                messages.success(request, f"{username}, You are logged in to account")          
+                messages.success(request, f"{username}, You are logged in to account")   
+                
+                if request.POST.get('next', None):
+                    return  HttpResponseRedirect(request.POST.get('next'))
+
                 return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserLoginForm()
 
     context = {
-        'title': 'Home - authprization',
+        'title': 'Home - authorization',
         'form': form
     }
     return render(request, 'users/login.html', context)
