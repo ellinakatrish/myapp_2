@@ -31,6 +31,17 @@
                                     {% endif %}
                             </div>
                             <div class="col-md-12 mb-3">
+                                <label for="id_first_name" class="form-label">Name*</label>
+                                <input type="text" class="form-control" id="id_first_name"
+                                    name="first_name"
+                                    placeholder="Enter your name"
+                                    value="{{ form.first_name.value }}"
+                                    required>
+                                    {% if form.first_name.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
+                                    {% endif %}
+                            </div>
+                            <div class="col-md-12 mb-3">
                                 <label for="id_last_name" class="form-label">Last Name*</label>
                                 <input type="text" class="form-control" id="id_last_name"
                                     name="last_name"
@@ -74,11 +85,11 @@
                     <h3 class="text-center mb-4">Basket</h3>
                     <div class="container" id="cart-items-container">
                         <!-- Cart layout -->
-                        
+                        {% include "carts/includes/included_cart.html" %}
                         <!-- The end of basket layout-->
                     </div>
                     <a class="btn btn-dark" href="../orders/create_order.html">
-                       Checkout
+                       Order
                     </a>
                 </div>
             </div>
@@ -127,7 +138,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading2">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                        Order № 248 - 01 april 2024 11:28 | Статус: <strong>Got</strong>
+                                        Order № 248 - 01 april 2024 11:28 | Status: <strong>Got</strong>
                                     </button>
                                 </h2>
                                 <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">

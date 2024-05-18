@@ -8,8 +8,11 @@ from django.urls import reverse
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
 def login(request):
+    
     if request.method == 'POST':
-        form = UserLoginForm(data=request.POST)
+        form = UserLoginForm(data=request.POST) 
+        #validation
+        
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
@@ -71,6 +74,10 @@ def profile (request):
         'form' : form
     }       
     return render(request, 'users/profile.html', context)
+
+
+def users_cart(request):
+    return render(request, 'users/users_cart.html')
 
 @login_required
 def logout (request):
