@@ -50,7 +50,7 @@ $(document).ready(function () {
             },
         });
     });
-    
+
 
 
 
@@ -105,85 +105,85 @@ $(document).ready(function () {
 
 
 
-    // //Now + - quantity of goods 
-    // //event handler for decrementing value
-    // $(document).on("click", ".decrement", function () {
-    //     //taking a link to the django controller from the attribute data-cart-change-url
-    //     var url = $(this).data("cart-change-url");
+    //Now + - quantity of goods 
+    //event handler for decrementing value
+    $(document).on("click", ".decrement", function () {
+        //taking a link to the django controller from the attribute data-cart-change-url
+        var url = $(this).data("cart-change-url");
 
-    //     //taking the cart id from the attribute data-cart-id
-    //     var cartID = $(this).data("cart-id");
+        //taking the cart id from the attribute data-cart-id
+        var cartID = $(this).data("cart-id");
 
-    //     //looking for the nearest input with quantity
-    //     var $input = $(this).closest('.input-group').find('.number');
+        //looking for the nearest input with quantity
+        var $input = $(this).closest('.input-group').find('.number');
 
-    //     //we take the value of the quantity of goods
-    //     var currentValue = parseInt($input.val());
+        //we take the value of the quantity of goods
+        var currentValue = parseInt($input.val());
 
-    //     //if there is more than one quantity, then only do -1
-    //     if (currentValue > 1) {
-    //         $input.val(currentValue - 1);
-    //         //run the function defined below
-    //         //with arguments (card id, new quantity, quantity decreased or added, url)
-    //         updateCart(cartID, currentValue - 1, -1, url);
-    //     }
-    // });
+        //if there is more than one quantity, then only do -1
+        if (currentValue > 1) {
+            $input.val(currentValue - 1);
+            //run the function defined below
+            //with arguments (card id, new quantity, quantity decreased or added, url)
+            updateCart(cartID, currentValue - 1, -1, url);
+        }
+    });
 
-    // //event handler for increasing value
-    // $(document).on("click", ".increment", function () {
-    //     //taking a link to the django controller from the attribute data-cart-change-url
-    //     var url = $(this).data("cart-change-url");
+    //event handler for increasing value
+    $(document).on("click", ".increment", function () {
+        //taking a link to the django controller from the attribute data-cart-change-url
+        var url = $(this).data("cart-change-url");
 
-    //     //taking the cart id from the attribute data-cart-id
-    //     var cartID = $(this).data("cart-id");
+        //taking the cart id from the attribute data-cart-id
+        var cartID = $(this).data("cart-id");
 
-    //     //looking for the nearest input with quantity 
-    //     var $input = $(this).closest('.input-group').find('.number');
+        //looking for the nearest input with quantity 
+        var $input = $(this).closest('.input-group').find('.number');
 
-    //     //taking the value of the quantity of goods
-    //     var currentValue = parseInt($input.val());
+        //taking the value of the quantity of goods
+        var currentValue = parseInt($input.val());
 
-    //     $input.val(currentValue + 1);
+        $input.val(currentValue + 1);
 
-    //     // Run the function defined below
-    //     // with arguments (card id, new quantity, quantity decreased or increased, url)
-    //     updateCart(cartID, currentValue + 1, 1, url);
-    // });
+        // Run the function defined below
+        // with arguments (card id, new quantity, quantity decreased or increased, url)
+        updateCart(cartID, currentValue + 1, 1, url);
+    });
 
-    // function updateCart(cartID, quantity, change, url) {
-    //     $.ajax({
-    //         type: "POST",
-    //         url: url,
-    //         data: {
-    //             cart_id: cartID,
-    //             quantity: quantity,
-    //             csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
-    //         },
+    function updateCart(cartID, quantity, change, url) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                cart_id: cartID,
+                quantity: quantity,
+                csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
+            },
 
-    //         success: function (data) {
-    //             // messages
-    //             successMessage.html(data.message);
-    //             successMessage.fadeIn(400);
+            success: function (data) {
+                // messages
+                successMessage.html(data.message);
+                successMessage.fadeIn(400);
 
-    //             // In 7seconds message should gone
-    //             setTimeout(function () {
-    //                 successMessage.fadeOut(400);
-    //             }, 7000);
+                // In 7seconds message should gone
+                setTimeout(function () {
+                    successMessage.fadeOut(400);
+                }, 7000);
 
-    //             //changing quantity of goods in basket
-    //             var goodsInCartCount = $("#goods-in-cart-count");
-    //             var cartCount = parseInt(goodsInCartCount.text() || 0);
-    //             cartCount += change;
-    //             goodsInCartCount.text(cartCount);
+                //changing quantity of goods in basket
+                var goodsInCartCount = $("#goods-in-cart-count");
+                var cartCount = parseInt(goodsInCartCount.text() || 0);
+                cartCount += change;
+                goodsInCartCount.text(cartCount);
 
-    //             //changes in basket
-    //             var cartItemsContainer = $("#cart-items-container");
-    //             cartItemsContainer.html(data.cart_items_html);
+                //changes in basket
+                var cartItemsContainer = $("#cart-items-container");
+                cartItemsContainer.html(data.cart_items_html);
 
-    //         },
-    //         error: function (data) {
-    //             console.log("Error adding item to cart");
-    //         },
-    //     });
-    // }
+            },
+            error: function (data) {
+                console.log("Error adding item to cart");
+            },
+        });
+    }
 });
