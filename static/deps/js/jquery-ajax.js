@@ -50,57 +50,57 @@ $(document).ready(function () {
             },
         });
     });
+    
 
 
 
+    //catching the event of a click on the button to remove an item from the cart
+    $(document).on("click", ".remove-from-cart", function (e) {
+        //Blocking its basic action
+        e.preventDefault();
 
-    // //catching the event of a click on the button to remove an item from the cart
-    // $(document).on("click", ".remove-from-cart", function (e) {
-    //     //Blocking its basic action
-    //     e.preventDefault();
+        //taking the counter element in the cart icon and take the value from there
+        var goodsInCartCount = $("#goods-in-cart-count");
+        var cartCount = parseInt(goodsInCartCount.text() || 0);
 
-    //     //taking the counter element in the cart icon and take the value from there
-    //     var goodsInCartCount = $("#goods-in-cart-count");
-    //     var cartCount = parseInt(goodsInCartCount.text() || 0);
+        //getting the cart id from the attribute data-cart-id
+        var cart_id = $(this).data("cart-id");
+        //from the href attribute we take a link to the controller django
+        var remove_from_cart = $(this).attr("href");
 
-    //     //getting the cart id from the attribute data-cart-id
-    //     var cart_id = $(this).data("cart-id");
-    //     //from the href attribute we take a link to the controller django
-    //     var remove_from_cart = $(this).attr("href");
+        // making a post request via ajax without reloading the page
+        $.ajax({
 
-    //     // making a post request via ajax without reloading the page
-    //     $.ajax({
+            type: "POST",
+            url: remove_from_cart,
+            data: {
+                cart_id: cart_id,
+                csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
+            },
+            success: function (data) {
+                //message
+                successMessage.html(data.message);
+                successMessage.fadeIn(400);
+                // In 7 seconds the message is gone
+                setTimeout(function () {
+                    successMessage.fadeOut(400);
+                }, 7000);
 
-    //         type: "POST",
-    //         url: remove_from_cart,
-    //         data: {
-    //             cart_id: cart_id,
-    //             csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
-    //         },
-    //         success: function (data) {
-    //             //message
-    //             successMessage.html(data.message);
-    //             successMessage.fadeIn(400);
-    //             // In 7 seconds the message is gone
-    //             setTimeout(function () {
-    //                 successMessage.fadeOut(400);
-    //             }, 7000);
+                //reducing the number of items in the cart (rendering)
+                cartCount -= data.quantity_deleted;
+                goodsInCartCount.text(cartCount);
 
-    //             //reducing the number of items in the cart (rendering)
-    //             cartCount -= data.quantity_deleted;
-    //             goodsInCartCount.text(cartCount);
+                //changing the contents of the cart to the response from django (a new rendered fragment of the cart markup)
+                var cartItemsContainer = $("#cart-items-container");
+                cartItemsContainer.html(data.cart_items_html);
 
-    //             //changing the contents of the cart to the response from django (a new rendered fragment of the cart markup)
-    //             var cartItemsContainer = $("#cart-items-container");
-    //             cartItemsContainer.html(data.cart_items_html);
+            },
 
-    //         },
-
-    //         error: function (data) {
-    //             console.log("Error adding item to cart");
-    //         },
-    //     });
-    // });
+            error: function (data) {
+                console.log("Error adding item to cart");
+            },
+        });
+    });
 
 
 
