@@ -9,65 +9,56 @@ from carts.models import Cart
 from orders.forms import CreateOrderForm
 from orders.models import Order, OrderItem
 
+@login_required
 def create_order(request):
     if request.method == 'POST':
-        form = CreateOrderForm(data=request.POST)
+        form = CreateOrderForm(request.POST)
         if form.is_valid():
             try:
                 with transaction.atomic():
                     user = request.user
                     cart_items = Cart.objects.filter(user=user)
 
-                    if cart_items.exists():
-                        # Create an order
-                        order = Order.objects.create(
-                            user=user,
-                            phone_number=form.cleaned_data['phone_number'],
-                            requires_delivery=form.cleaned_data['requires_delivery'],
-                            delivery_address=form.cleaned_data['delivery_address'],
-                            payment_on_get=form.cleaned_data['payment_on_get'],
+                    if not cart_items.exists():
+                        messages.error(request, 'Your cart is empty.')
+                        return redirect('cart:cart_detail')
+
+                    for cart_item in cart_items:
+                        if cart_item.product.quantity < cart_item.quantity:
+                            raise ValidationError(f'Limited product quantity {cart_item.product.name} available: {cart_item.product.quantity}')
+
+                    order = Order.objects.create(
+                        user=user,
+                        phone_number=form.cleaned_data['phone_number'],
+                        requires_delivery=form.cleaned_data['requires_delivery'],
+                        delivery_address=form.cleaned_data['delivery_address'],
+                        payment_on_get=form.cleaned_data['payment_on_get'],
+                    )
+
+                    for cart_item in cart_items:
+                        OrderItem.objects.create(
+                            order=order,
+                            product=cart_item.product,
+                            name=cart_item.product.name,
+                            price=cart_item.product.sell_price(),
+                            quantity=cart_item.quantity,
                         )
-                        # Create ordered products
-                        for cart_item in cart_items:
-                            product=cart_item.product
-                            name=cart_item.product.name
-                            price=cart_item.product.sell_price()
-                            quantity=cart_item.quantity
+                        cart_item.product.quantity -= cart_item.quantity
+                        cart_item.product.save()
 
+                    cart_items.delete()
+                    messages.success(request, 'Order created!')
+                    return redirect('user:profile')
 
-                            if product.quantity < quantity:
-                                raise ValidationError(
-                                    f'Limited quantity of products {name} In stock - {product.quantity}')
-
-                            OrderItem.objects.create(
-                                order=order,
-                                product=product,
-                                name=name,
-                                price=price,
-                                quantity=quantity,
-                            )
-                            product.quantity -= quantity
-                            product.save()
-
-                        # Empty the user's cart after creating an order
-                        cart_items.delete()
-
-                        messages.success(request, 'Order is processed!')
-                        return redirect('user:profile')
             except ValidationError as e:
-                messages.success(request, str(e))
-                return redirect('cart:order')
-    else:
-        initial = {
-            'first_name': request.user.first_name,
-            'last_name': request.user.last_name,
-            }
+                messages.error(request, str(e))
+                return redirect('cart:cart_detail')
 
-        form = CreateOrderForm(initial=initial)
+    else:
+        form = CreateOrderForm(initial={'first_name': request.user.first_name, 'last_name': request.user.last_name})
 
     context = {
-        'title': 'Home - Order is processed!',
+        'title': 'Home - Create Order',
         'form': form,
-        'orders': True,
     }
-    return render(request, 'orders/create_order.html', context=context)
+    return render(request, 'orders/create_order.html', context)
