@@ -25,12 +25,7 @@
                     <!-- basket start -->
                   {% include "carts/includes/included_cart.html" %}
                     <!-- /basket end -->
-                </div>
-                {% if carts %}
-                    <a class="btn btn-dark" href="{% url "orders:create_order" %}">
-                        Order/Checkout
-                    </a>
-                {% endif %}                
+                </div>                
             </div>
         </div>
     </div>
