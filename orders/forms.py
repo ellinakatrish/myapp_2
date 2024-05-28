@@ -9,7 +9,7 @@ class CreateOrderForm(forms.Form):
     phone_number = forms.CharField()
     requires_delivery = forms.ChoiceField(
         choices=[
-            ("0", False),
+            ("0", False),   
             ("1", True),
             ],
         )

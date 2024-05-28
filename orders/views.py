@@ -69,6 +69,6 @@ def create_order(request):
     context = {
         'title': 'Home - Create order',
         'form': form,
-        'orders': True,
+        'order': True,
     }
     return render(request, 'orders/create_order.html', context=context)
